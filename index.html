@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CoCoEval evaluates whether LLM-simulated conversations reproduce the inconsistent and uncollaborative behaviors, such as misunderstandings and interruptions, that naturally occur in human conversations.">
+  <meta name="keywords" content="CoCoEval, conversation simulation, social simulation, large language model, LLM, LLM-as-a-Judge, human social interaction">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=1024">
+  <title>CoCoEval: Evaluating LLM-Simulated Conversations in Modeling Inconsistent and Uncollaborative Behaviors in Human Social Interaction</title>
+
+<!-- Google tag (gtag.js) -->
+<!-- TODO: replace with the Google Analytics ID for this site -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
+<!-- End Google tag (gtag.js) -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ryokamoi/navbar@main/more-research-custom.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<div id="more-research"></div>
+<script>
+  fetch('https://raw.githubusercontent.com/ryokamoi/navbar/refs/heads/main/more-research.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('more-research').innerHTML = data;
+    });
+</script>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title is-bold">
+            <span class="cocoeval">CoCoEval</span>
+          </h1>
+          <h2 class="subtitle is-4 publication-subtitle" style="font-size: 1.75rem;">
+            Evaluating LLM-Simulated Conversations in Modeling Inconsistent and Uncollaborative Behaviors in Human Social Interaction
+          </h2>
+          <div class="publication-authors" style="font-size: 1.15rem;">
+            <span class="author-block">
+              <a href="https://ryokamoi.github.io/">Ryo Kamoi</a><sup>2&dagger;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ameyagodbole.github.io/">Ameya Godbole</a><sup>3&dagger;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/binglin-zhou-341052321/">Binglin Zhou</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Xiaoxin_Lu1">Xiaoxin Lu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ylongqi.com/">Longqi Yang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ryanzhumich.github.io/">Rui Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://mengtingwan.github.io/">Mengting Wan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://shaoxia57.github.io/">Pei Zhou</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="publication-authors" style="font-size: 1.15rem;">
+            <span class="author-block"><sup>1</sup>Microsoft Corporation, <sup>2</sup>Penn State University, <sup>3</sup>University of Southern California</span><br>
+            <span class="author-block is-size-6"><sup>&dagger;</sup>Work done during an internship at Microsoft</span><br>
+            <span class="paper-block"><b>EMNLP 2026</b></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2603.17094"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <!-- TODO: add code link -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/psunlpgroup/CoCoEval"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- TODO: add dataset link -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/datasets/ryokamoi/CoCoEvalBench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span> -->
+              <!-- BibTex Button -->
+              <span class="link-block">
+                <button class="button is-normal is-rounded is-dark" onclick="document.getElementById('bibtex-modal').classList.add('is-active')">
+                  <span class="icon">
+                    <p style="font-size:18px">📄</p>
+                  </span>
+                  <span>BibTex</span>
+                </button>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTex Modal -->
+<div class="modal" id="bibtex-modal">
+  <div class="modal-background" onclick="document.getElementById('bibtex-modal').classList.remove('is-active')"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">BibTeX</p>
+      <button class="delete" aria-label="close" onclick="document.getElementById('bibtex-modal').classList.remove('is-active')"></button>
+    </header>
+    <section class="modal-card-body">
+      <pre id="bibtex-entry" style="white-space: pre-wrap; font-size: 0.9rem; background: #f7f7f7; padding: 1rem; border-radius: 5px;">
+      </pre>
+      <button class="button is-small is-link mt-3" onclick="copyBibtex()">Copy</button>
+    </section>
+  </div>
+</div>
+
+<script>
+  function copyBibtex() {
+    const bibtex = document.getElementById("bibtex-entry").innerText;
+    navigator.clipboard.writeText(bibtex);
+  }
+</script>
+
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -50px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div class="box m-5">
+          <div class="content has-text-centered">
+            <img src="static/images/findings.png" alt="Findings of CoCoEval" style="width: 100%; max-width: 1000px; padding: 1rem; box-sizing: border-box;" />
+              <p>
+                Real human conversations are full of small imperfections, such as vague answers and misunderstandings. Conversations simulated by LLMs often lack these imperfections, or overproduce a few of them, such as repetition.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Introduction. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Can LLMs Talk Like Humans Do?</h2>
+        <div class="content has-text-justified">
+          <p>
+            Researchers increasingly use large language models (LLMs) to <strong>simulate conversations between people</strong>: the LLM writes every participant's utterances in a meeting, a debate, or a social media thread. These simulated conversations are used to prototype social platforms, test hypotheses in social science, and forecast how people might respond to new policies. This raises a basic question: how close are these simulated conversations to the real thing?
+          </p>
+          <p>
+            <strong>Real human conversations are not perfectly consistent or collaborative.</strong> People misunderstand each other, repeat themselves, interrupt, go off topic, and dodge questions. These behaviors are a natural part of how humans interact, and they shape what happens next in a conversation, such as clearing up a misunderstanding or persuading someone who disagrees. If we want LLMs to stand in for humans, their simulated conversations should include these behaviors about as often as humans do. However, previous evaluations (1) have largely treated "more consistent" and "more collaborative" as "better", and (2) have relied on coarse, conversation-level scores (for example, "consistency: 5.2 out of 10") that do not reveal <em>what</em> is different.
+          </p>
+          <p>
+            We introduce <span class="cocoeval">CoCoEval</span>, an evaluation framework with two parts. (1) An <strong>evaluation scheme</strong> that checks each turn of a conversation for 10 types of inconsistent and uncollaborative behaviors, listed below, so we can compare how often each one appears in human and simulated conversations. (2) <span class="cocoeval">CoCoEvalBench</span>, a <strong>benchmark</strong> built from real-world meetings and debates in which an LLM is asked to continue a human conversation for 30 turns.
+          </p>
+          <p>
+            Using <span class="cocoeval">CoCoEval</span>, we compare human conversations with those simulated by GPT-4.1, GPT-5.1, and Claude Opus 4. We find that <strong>(1) with standard prompting, LLM-simulated conversations contain far fewer inconsistent and uncollaborative behaviors than human conversations</strong>, and <strong>(2) prompt engineering and fine-tuning on human conversations do not give reliable control</strong>: they tend to overproduce a few specific behaviors, such as repetition, instead of matching the human distribution. These gaps are invisible to conventional conversation-level scores. Our results raise concerns about using LLM simulations as proxies for human social interaction.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Introduction. -->
+  </div>
+
+  <div class="container" style="margin-top: -50px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div class="box m-5">
+          <div class="content has-text-centered">
+            <img src="static/images/method.png" alt="Method of CoCoEval" style="width: 100%; max-width: 1000px; padding: 1rem; box-sizing: border-box;" />
+              <p>
+                Instead of giving a whole conversation a single score, <span class="cocoeval">CoCoEval</span> looks at each turn and asks whether it shows any of 10 behaviors. Counting these behaviors makes the differences between human and LLM-simulated conversations visible and easy to interpret.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: -50px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div class="box m-5">
+          <div class="content has-text-centered">
+            <img src="static/images/task.png" alt="Task in CoCoEvalBench" style="width: 100%; max-width: 450px; padding: 1rem; box-sizing: border-box;" />
+              <p>
+                The simulation task in <span class="cocoeval">CoCoEvalBench</span>. Given a description of the meeting (its goal, organization, and participants) and the conversation so far, the LLM writes the next 30 turns for all participants. We then compare these turns with what the real people actually said next.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Behaviors. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">The 10 Behaviors We Look For</h2>
+        <div class="content has-text-justified">
+          <p>
+            <span class="cocoeval">CoCoEval</span> uses an LLM-as-a-Judge to flag each turn of a conversation for the following behaviors. The point is not that these behaviors are bad. They are a normal part of human conversation, and a realistic simulation should include them at human-like frequencies.
+          </p>
+          <div class="table-container">
+            <table class="table is-bordered is-striped is-fullwidth has-text-left" style="font-size: 0.95rem;">
+              <thead>
+                <tr>
+                  <th style="width: 20%;">Behavior</th>
+                  <th style="width: 35%;">What it means</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th colspan="3" class="has-text-centered has-background-light">Inconsistent Behaviors</th></tr>
+                <tr>
+                  <td><strong>Logical Contradiction</strong></td>
+                  <td>Saying something that contradicts what the same speaker said earlier.</td>
+                  <td>"The remote runs on a single AA battery," and later, "It requires two AA batteries."</td>
+                </tr>
+                <tr>
+                  <td><strong>Factual Inaccuracy</strong></td>
+                  <td>Stating something that is factually wrong.</td>
+                  <td>Claiming that infrared signals can pass through walls.</td>
+                </tr>
+                <tr>
+                  <td><strong>Misunderstanding</strong></td>
+                  <td>Misinterpreting what another participant said.</td>
+                  <td>One person says the remote has only a touch screen; another later assumes it has physical buttons.</td>
+                </tr>
+                <tr>
+                  <td><strong>Redundant Information</strong></td>
+                  <td>Talking at length without adding anything new.</td>
+                  <td>A long explanation about previous projects that adds no new information.</td>
+                </tr>
+                <tr>
+                  <td><strong>Repetition</strong></td>
+                  <td>Repeating something already said in the conversation.</td>
+                  <td>"I will bring the documents." "So you will bring the documents, right?"</td>
+                </tr>
+                <tr><th colspan="3" class="has-text-centered has-background-light">Uncollaborative Behaviors</th></tr>
+                <tr>
+                  <td><strong>Persistent Disagreement</strong></td>
+                  <td>Continuing to reject others' positions after consensus or supporting evidence.</td>
+                  <td>Rejecting a plan even after everyone else agrees and gives evidence for it.</td>
+                </tr>
+                <tr>
+                  <td><strong>Interruption</strong></td>
+                  <td>Cutting off another speaker.</td>
+                  <td>Breaking in mid-explanation and leaving the other's sentence unfinished: "... the key point is"</td>
+                </tr>
+                <tr>
+                  <td><strong>Off Topic</strong></td>
+                  <td>Drifting away from the current topic.</td>
+                  <td>Sharing unrelated personal stories in the middle of a project meeting.</td>
+                </tr>
+                <tr>
+                  <td><strong>Under Answering</strong></td>
+                  <td>Giving an evasive reply that does not answer the question.</td>
+                  <td>Asked "Will this policy increase taxes?", replying "We are focused on supporting working families."</td>
+                </tr>
+                <tr>
+                  <td><strong>Unclear Intent</strong></td>
+                  <td>Being ambiguous about what one actually means.</td>
+                  <td>Asked to agree or disagree, responding only with "Maybe."</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Behaviors. -->
+  </div>
+
+  <div class="container">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: 2rem;">What We Found</h2>
+        <div class="content has-text-justified">
+          <p>
+            The graphs below show how many turns, out of every 30, contain each behavior. The human graph is the target: a good simulation should look like it. <strong>Vanilla prompting</strong> produces almost none of these behaviors. <strong>Taxonomy-guided prompting</strong>, which tells the LLM about the 10 behaviors and how often humans exhibit them, overshoots by a wide margin (note the larger y-axis). <strong>Fine-tuning</strong> on human conversations mostly teaches the LLM to repeat itself. None of the setups reproduces the human pattern.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Results. -->
+  </div>
+
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <div class="box">
+          <div class="content has-text-centered">
+            <div class="columns is-multiline is-centered">
+              <div class="column is-half">
+                <p class="has-text-weight-bold mb-1">Human Conversations</p>
+                <img src="static/images/results/human.png" alt="Fine-grained evaluation of human conversations" style="width: 100%;" />
+              </div>
+              <div class="column is-half">
+                <p class="has-text-weight-bold mb-1">GPT-4.1, Vanilla Prompting</p>
+                <img src="static/images/results/gpt-4.1_vanilla.png" alt="Fine-grained evaluation of GPT-4.1 with vanilla prompting" style="width: 100%;" />
+              </div>
+              <div class="column is-half">
+                <p class="has-text-weight-bold mb-1">GPT-4.1, Taxonomy-Guided Prompting</p>
+                <img src="static/images/results/gpt-4.1_taxonomy-guided.png" alt="Fine-grained evaluation of GPT-4.1 with taxonomy-guided prompting" style="width: 100%;" />
+              </div>
+              <div class="column is-half">
+                <p class="has-text-weight-bold mb-1">GPT-4.1, Fine-Tuned on Human Conversations</p>
+                <img src="static/images/results/gpt-4.1_sft.png" alt="Fine-grained evaluation of GPT-4.1 fine-tuned on human conversations" style="width: 100%;" />
+              </div>
+            </div>
+              <p>
+                Number of turns exhibiting each behavior per 30-turn continuation, averaged over 300 conversations in <span class="cocoeval">CoCoEvalBench</span> (GPT-4.1 generating one turn per call, evaluated by o4-mini). The y-axis for taxonomy-guided prompting uses a different scale. The paper also reports results for GPT-5.1 and Claude Opus 4.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+
+    <div class="box">
+      <pre><code id="bibtex-entry2"></code></pre>
+      <div class="has-text-centered">
+        <button class="button is-small is-link" onclick="copyBibtex()">Copy BibTeX</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function copyBibtex() {
+    const bibtex = document.getElementById("bibtex-entry2").innerText;
+    navigator.clipboard.writeText(bibtex);
+  }
+</script>
+
+<script>
+  fetch('bibtex.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('bibtex-entry').innerHTML = data;
+      document.getElementById('bibtex-entry2').innerHTML = data;
+    });
+</script>
+
+<section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://nlp.psu.edu/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/banners/pennstate.png">
+    </a>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://mathvista.github.io/">MathVista</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
